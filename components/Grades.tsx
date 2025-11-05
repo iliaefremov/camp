@@ -41,6 +41,7 @@ const Grades: React.FC = () => {
     }
 
     const currentUserId = currentUser.id.toString();
+    setUser(currentUser); // Сохраняем пользователя в состояние
 
     try {
       const fetchedGrades = await getGrades();
@@ -62,12 +63,10 @@ const Grades: React.FC = () => {
   }, []);
 
   // Эффект, который запускается один раз при монтировании компонента.
-  // Инициализирует Telegram Web App и запускает загрузку оценок.
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
     if (tg) {
       tg.ready();
-      setUser(tg.initDataUnsafe?.user || null);
     }
     loadGrades();
   }, [loadGrades]);
